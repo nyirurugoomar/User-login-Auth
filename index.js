@@ -2,7 +2,8 @@ const express = require('express');
 const mongoose = require('mongoose');
 const authRoutes = require('./authRoutes');
 const cors = require('cors');
-
+const dotenv = require("dotenv");
+dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5000;
 
@@ -17,7 +18,7 @@ app.use(authRoutes);
 
 
 // Connect to MongoDB
-mongoose.connect('mongodb+srv://nyirurugoomar:nyirurugoomar@cluster0.k9q14fo.mongodb.net/?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(process.env.MONGODB_URL, { useNewUrlParser: true, useUnifiedTopology: true });
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 db.once('open', () => console.log('MongoDB Connected Successful'));
